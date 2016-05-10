@@ -1,6 +1,7 @@
 package domein;
 
 import java.util.List;
+import java.util.Objects;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -12,23 +13,19 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Leerling.findAll", query = "SELECT l.inschrijvingsnummer, l.familienaam, l.voornaam, l.email FROM Leerling l")
+    @NamedQuery(name = "Leerling.findAll", query = "SELECT l FROM Leerling l")
 })
 
-public class Leerling {
+public class Leerling{
     
     @Id 
-    private int inschrijvingsnummer;
+    private String inschrijvingsnummer;
     
     private String familienaam;
     private String voornaam;
     private String email;
     private String wachtwoord;
-    
-    @Lob
-    @Column(name = "profielfoto")
-    private byte[] foto;
-   
+       
     @OneToMany(mappedBy="leerling")
     private List<Evaluatiemoment> evaluatiemomenten;
     
@@ -40,12 +37,41 @@ public class Leerling {
     
     @OneToOne
     private EvaluatieGrafiek evaluatieGrafiek;
+
+    public void setAttituden(List<Attitude> attituden) {
+        this.attituden = attituden;
+    }
+
+    public EvaluatieGrafiek getEvaluatieGrafiek() {
+        return evaluatieGrafiek;
+    }
+
+    public void setEvaluatieGrafiek(EvaluatieGrafiek evaluatieGrafiek) {
+        this.evaluatieGrafiek = evaluatieGrafiek;
+    }
+
+    public List<Evaluatiemoment> getEvaluatiemomenten() {
+        return evaluatiemomenten;
+    }
+
+    public void setEvaluatiemomenten(List<Evaluatiemoment> evaluatiemomenten) {
+        this.evaluatiemomenten = evaluatiemomenten;
+    }
+
+    public List<Icoon> getIconen() {
+        return iconen;
+    }
+
+    public void setIconen(List<Icoon> iconen) {
+        this.iconen = iconen;
+    }
     
-    public int getInschrijvingsnummer() {
+    
+    public String getInschrijvingsnummer() {
         return inschrijvingsnummer;
     }
 
-    public void setInschrijvingsnummer(int inschrijvingsnummer) {
+    public void setInschrijvingsnummer(String inschrijvingsnummer) {
         this.inschrijvingsnummer = inschrijvingsnummer;
     }
 
@@ -83,8 +109,8 @@ public class Leerling {
 
     @Override
     public int hashCode() {
-        int hash = 3;
-        hash = 37 * hash + this.inschrijvingsnummer;
+        int hash = 7;
+        hash = 37 * hash + Objects.hashCode(this.inschrijvingsnummer);
         return hash;
     }
 
@@ -100,10 +126,14 @@ public class Leerling {
             return false;
         }
         final Leerling other = (Leerling) obj;
-        if (this.inschrijvingsnummer != other.inschrijvingsnummer) {
+        if (!Objects.equals(this.inschrijvingsnummer, other.inschrijvingsnummer)) {
             return false;
         }
         return true;
+    }   
+
+    public List<Attitude> getAttituden() {
+        return attituden;
     }
     
     
