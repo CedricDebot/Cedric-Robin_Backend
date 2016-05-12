@@ -1,11 +1,13 @@
 package domein;
 
+import com.sun.javafx.scene.control.skin.VirtualFlow;
+import java.util.AbstractList;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.Id;
-import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -13,7 +15,7 @@ import javax.persistence.OneToOne;
 
 @Entity
 @NamedQueries({
-    @NamedQuery(name = "Leerling.findAll", query = "SELECT l FROM Leerling l")
+    @NamedQuery(name = "Leerling.findAll", query = "SELECT l FROM Leerling l ")
 })
 
 public class Leerling{
@@ -27,15 +29,15 @@ public class Leerling{
     private String wachtwoord;
        
     @OneToMany(mappedBy="leerling")
-    private List<Evaluatiemoment> evaluatiemomenten;
+    private List<Evaluatiemoment> evaluatiemomenten = new ArrayList<>();
     
-    @OneToMany
-    private List<Attitude> attituden;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Attitude> attituden = new ArrayList<>();
     
-    @OneToMany
-    private List<Icoon> iconen;
+    @OneToMany(cascade = CascadeType.PERSIST)
+    private List<Icoon> iconen = new ArrayList<>();
     
-    @OneToOne
+    @OneToOne(cascade = CascadeType.PERSIST)
     private EvaluatieGrafiek evaluatieGrafiek;
 
     public void setAttituden(List<Attitude> attituden) {

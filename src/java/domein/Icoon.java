@@ -1,5 +1,6 @@
 package domein;
 
+import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -10,19 +11,21 @@ import javax.persistence.OneToMany;
 
 @Entity
 public class Icoon {
-    @Id @GeneratedValue
+
+    @Id
+    @GeneratedValue
     private int id;
-    
+
     private String naam;
-    
+
     @Enumerated(EnumType.STRING)
     private Toestand toestand;
-    
+
     @Enumerated(EnumType.STRING)
     private SchermType type;
-    
-    @OneToMany(mappedBy="icoon")
-    private List<Opmerking> opmerkingen;
+
+    @OneToMany(mappedBy = "icoon")
+    private List<Opmerking> opmerkingen = new ArrayList<>();
 
     public int getId() {
         return id;
@@ -52,6 +55,10 @@ public class Icoon {
         this.type = type;
     }
 
+    public List<Opmerking> getOpmerkingen() {
+        return opmerkingen;
+    }
+
     @Override
     public int hashCode() {
         int hash = 3;
@@ -76,6 +83,5 @@ public class Icoon {
         }
         return true;
     }
-    
-    
+
 }

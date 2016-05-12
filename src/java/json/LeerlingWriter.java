@@ -42,15 +42,15 @@ public class LeerlingWriter implements MessageBodyWriter<Leerling> {
            jsonLeerling.add("email", leerling.getEmail());
            jsonLeerling.add("wachtwoord", leerling.getWachtwoord());
            
-           JsonArrayBuilder jsonAttitude = Json.createArrayBuilder();
-           for (Attitude attitude : leerling.getAttituden()) {
-               JsonObjectBuilder object = Json.createObjectBuilder();
-               object.add("id", attitude.getId());
-               object.add("naam", attitude.getNaam());
-               object.add("opmerking", attitude.getOpmerking());
-               jsonAttitude.add(object);
-           }
-           jsonLeerling.add("attituden", jsonAttitude);
+//           JsonArrayBuilder jsonAttitude = Json.createArrayBuilder();
+//           for (Attitude attitude : leerling.getAttituden()) {
+//               JsonObjectBuilder object = Json.createObjectBuilder();
+//               object.add("id", attitude.getId());
+//               object.add("naam", attitude.getNaam());
+//               object.add("opmerking", attitude.getOpmerking());
+//               jsonAttitude.add(object);
+//           }
+//           jsonLeerling.add("attituden", jsonAttitude);
            
            out.writeObject(jsonLeerling.build());
        }
