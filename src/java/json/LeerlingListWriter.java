@@ -63,35 +63,35 @@ public class LeerlingListWriter implements MessageBodyWriter<List<Leerling>> {
 //                object.add(evaluatiemoment.)
 //            }
 //
-//            JsonArrayBuilder jsonIcoon = Json.createArrayBuilder();
-//            for (Icoon icoon : leerling.getIconen()) {
-//                JsonObjectBuilder object = Json.createObjectBuilder();
-//                object.add("id", icoon.getId());
-//                object.add("naam", icoon.getNaam());
-//                object.add("toestand", icoon.getToestand().toString());
-//                object.add("type", (String) icoon.getType().toString());
-//            }
-//            jsonLeerling.add("iconen", jsonIcoon);
+            JsonArrayBuilder jsonIcoon = Json.createArrayBuilder();
+            for (Icoon icoon : leerling.getIconen()) {
+                JsonObjectBuilder object = Json.createObjectBuilder();
+                object.add("naam", icoon.getNaam());
+                object.add("toestand", icoon.getToestand().toString());
+                object.add("type", icoon.getType().toString());
+                jsonIcoon.add(object);
+            }
+            jsonLeerling.add("iconen", jsonIcoon);
 //            
-//            JsonArrayBuilder jsonAttitude = Json.createArrayBuilder();
-//            for (Attitude attitude : leerling.getAttituden()) {
-//                JsonObjectBuilder object = Json.createObjectBuilder();
-//                object.add("id", attitude.getId());
-//                object.add("naam", attitude.getNaam());
-//                object.add("opmerking", attitude.getOpmerking());
-//                jsonAttitude.add(object);
-//            }
-//            jsonLeerling.add("attituden", jsonAttitude);
-//
-//            JsonObjectBuilder evaGraf = Json.createObjectBuilder();
-//            EvaluatieGrafiek evaGrafiek = new EvaluatieGrafiek();
-//            evaGraf.add("id", evaGrafiek.getId());
-//            evaGraf.add("positie", evaGrafiek.getPositie());
-//            if (evaGrafiek.getVoortgang() != null) {
-//                evaGraf.add("voortgang", evaGrafiek.getVoortgang());
-//            }
-//            jsonLeerling.add("evaluatiegrafiek", evaGraf);
-//
+            JsonArrayBuilder jsonAttitude = Json.createArrayBuilder();
+            for (Attitude attitude : leerling.getAttituden()) {
+                JsonObjectBuilder object = Json.createObjectBuilder();
+                object.add("naam", attitude.getNaam());
+                object.add("opmerking", attitude.getOpmerking());
+                object.add("uitroeptekenActive", attitude.isUitroeptekenActive());
+                jsonAttitude.add(object);
+            }
+            jsonLeerling.add("attituden", jsonAttitude);
+
+
+            JsonObjectBuilder evaGraf = Json.createObjectBuilder();
+            EvaluatieGrafiek evaGrafiek = leerling.getEvaluatieGrafiek();
+            evaGraf.add("positie", evaGrafiek.getPositie());
+            if (evaGrafiek.getVoortgang() != null) {
+                evaGraf.add("voortgang", evaGrafiek.getVoortgang());
+            }
+            jsonLeerling.add("evaluatiegrafiek", evaGraf);
+
             jsonLeerlingen.add(jsonLeerling);
 //
         }
